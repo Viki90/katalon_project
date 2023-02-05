@@ -46,7 +46,7 @@ WebUI.switchToWindowUrl('https://rahulshettyacademy.com/seleniumPractise/#/cart'
 
 // get tottal amount
 
-text = WebUI.getText(findTestObject('Object Repository/Enter promo code/Page_GreenKart - veg and fruits kart/b_Total After Discount'))
+text = WebUI.getText(findTestObject('Object Repository/Enter promo code/Page_GreenKart - veg and fruits kart/span_75'))
 
 WebUI.setText(findTestObject('Object Repository/Enter promo code/Page_GreenKart - veg and fruits kart/input_Total_promoCode'), text)
 
@@ -58,5 +58,12 @@ if ( WebUI.verifyElementPresent(findTestObject('Object Repository/invlid message
 } else {
 	KeywordUtil.markFailed("Element is not present")
 }
+
+// Click on place order
+WebUI.click(findTestObject('Object Repository/place order/Page_GreenKart - veg and fruits kart/button_Place Order'))
+
+
+
+
 // close browser
 WebUI.closeBrowser()
