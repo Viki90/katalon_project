@@ -31,6 +31,8 @@ import org.openqa.selenium.WebElement as WebElement
 import com.kms.katalon.core.testobject.ConditionType
 import com.kms.katalon.core.testobject.TestObject as TestObject
 import java.util.concurrent.ThreadLocalRandom;
+import org.openqa.selenium.JavascriptExecutor as JavascriptExecutor
+
 
 
 // Open browser
@@ -90,6 +92,31 @@ WebUI.click(findTestObject('Object Repository/country/Page_GreenKart - veg and f
 
 // Verify message after procced btn
 WebUI.verifyTextPresent("Thank you", true)
+
+// new tab
+WebDriver driver = DriverFactory.getWebDriver()
+
+JavascriptExecutor js = ((driver) as JavascriptExecutor)
+
+js.executeScript('window.open();')
+int currentTab = WebUI.getWindowIndex()
+WebUI.switchToWindowIndex(currentTab)
+
+WebUI.navigateToUrl("http://www.webdriveruniversity.com/")
+
+// Scroll down to Actions and take a screenshot
+WebUI.scrollToElement(findTestObject('Object Repository/web/Page_WebDriverUniversity.com/h1_ACTIONS') , 3)
+
+// click on actions
+TestObject actionBtn = new TestObject().addProperty('xpath', ConditionType.EQUALS, "//*[@id='actions']") 
+WebUI.click(actionBtn)
+
+// Go back to the second tab (webdriveruniversity Home page) and take a screenshot
+// switch tab 
+WebUI.switchToWindowIndex(0)
+// take screenshot - 
+WebUI.takeScreenshot()
+WebUI.takeScreenshot('screenshot.png')
 
 // close browser
 WebUI.closeBrowser()
