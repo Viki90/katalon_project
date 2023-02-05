@@ -98,7 +98,22 @@ String AlertText = driver.switchTo().alert().getText()
 WebUI.verifyEqual(AlertText, 'Well done you clicked on the link!')
 WebUI.dismissAlert()
 
+// close browser
+WebUI.closeBrowser()
 
+// Open browser
+WebUI.openBrowser('http://www.webdriveruniversity.com/Contact-Us/contactus.html');
+
+// Maximize current window
+WebUI.maximizeWindow()
+
+// verify element
+WebUI.verifyElementPresent(findTestObject('Object Repository/contact us/Page_WebDriver  Contact Us/h2_CONTACT US'), 10)
+
+// In the Comment text box enter the Alert text 
+TestObject CommentText = new TestObject().addProperty('xpath', ConditionType.EQUALS, '//*[@id="contact_form"]/textarea')
+
+WebUI.setText(CommentText, AlertText)
 
 // close browser
 WebUI.closeBrowser()
