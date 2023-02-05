@@ -41,59 +41,6 @@ WebUI.openBrowser('https://rahulshettyacademy.com/seleniumPractise/#/');
 // Maximize current window
 WebUI.maximizeWindow()
 
-// click
-WebUI.click(findTestObject('Object Repository/Enter promo code/Page_GreenKart - veg and fruits kart/button_ADD TO CART'))
-
-// drop down
-TestObject dropdownValue = new TestObject('DropDownValue').addProperty('xpath', ConditionType.EQUALS, "//*[@id='root']/div/header/div/div[3]/a[4]/img")
-WebUI.waitForElementVisible(dropdownValue, 30)
-WebUI.click(dropdownValue)
-
-
-// click checkout
-WebUI.click(findTestObject('Object Repository/checkout/Page_GreenKart - veg and fruits kart/button_PROCEED TO CHECKOUT'))
-
-// Switch  window
-WebUI.switchToWindowUrl('https://rahulshettyacademy.com/seleniumPractise/#/cart')
-
-// Click on place order
-WebUI.click(findTestObject('Object Repository/place order/Page_GreenKart - veg and fruits kart/button_Place Order'))
-
-// Switch  window
-WebUI.switchToWindowUrl('https://rahulshettyacademy.com/seleniumPractise/#/country')
-
-// select
-TestObject selectEl = new TestObject().addProperty('xpath', ConditionType.EQUALS, "//*[@id='root']/div/div/div/div/div/select")
-
-WebUI.click(selectEl)
-
-// select country
-WebUI.selectOptionByValue(selectEl, 'India', false)
-
-// verify element is clickble (not disabled)
-WebUI.verifyElementClickable(selectEl)
-
-// random dopdown
-TotalOptions = WebUI.getNumberOfTotalOption(selectEl)
-
-Random rand = new Random()
-
-def randomNumber = ThreadLocalRandom.current().nextInt(0, TotalOptions - 1)
-WebUI.selectOptionByIndex(selectEl, randomNumber)
-
-//  check box 
-WebUI.check(findTestObject('Object Repository/checkbox/Page_GreenKart - veg and fruits kart/input_Choose Country_chkAgree'))
-
-// verify check box is checked
-WebUI.verifyElementChecked(findTestObject('Object Repository/checkbox/Page_GreenKart - veg and fruits kart/input_Choose Country_chkAgree'), 30)
-
-// click on procced btn
-WebUI.click(findTestObject('Object Repository/country/Page_GreenKart - veg and fruits kart/button_Proceed'))
-
-// Verify message after procced btn
-WebUI.verifyTextPresent("Thank you", true)
-
-// new tab
 WebDriver driver = DriverFactory.getWebDriver()
 
 JavascriptExecutor js = ((driver) as JavascriptExecutor)
@@ -108,13 +55,13 @@ WebUI.navigateToUrl("http://www.webdriveruniversity.com/")
 WebUI.scrollToElement(findTestObject('Object Repository/web/Page_WebDriverUniversity.com/h1_ACTIONS') , 3)
 
 // click on actions
-TestObject actionBtn = new TestObject().addProperty('xpath', ConditionType.EQUALS, "//*[@id='actions']") 
+TestObject actionBtn = new TestObject().addProperty('xpath', ConditionType.EQUALS, "//*[@id='actions']")
 WebUI.click(actionBtn)
 
 // Go back to the second tab (webdriveruniversity Home page) and take a screenshot
-// switch tab 
+// switch tab
 WebUI.switchToWindowIndex(0)
-// take screenshot - 
+// take screenshot -
 WebUI.takeScreenshot()
 WebUI.takeScreenshot('screenshot.png')
 
@@ -123,12 +70,26 @@ WebUI.click(actionBtn)
 // verify text actions
 WebUI.verifyTextPresent("ACTIONS", true)
 
+WebUI.navigateToUrl("http://www.webdriveruniversity.com/Actions/index.html")
+
+WebUI.verifyElementPresent(findTestObject('Object Repository/Drag_and_Drop/Page_WebDriver  Actions/p_DRAG ME TO MY TARGET'), 10)
 // Drag and drop “Drag me to my target” box inside the “Drop here” box
 TestObject drag = new TestObject().addProperty('xpath', ConditionType.EQUALS, '//*[@id="draggable"]')
-//*[@id="draggable"]
+
 TestObject drop = new TestObject().addProperty('xpath', ConditionType.EQUALS, "//*[@id='droppable']")
 
 WebUI.dragAndDropToObject(drag, drop)
+
+
+// Verify that “Link 1” is not visible until user hovers (Mouse Over) “Hover Over Me First” button
+TestObject HoverOverLink = new TestObject().addProperty('xpath', ConditionType.EQUALS, '//*[@id="div-hover"]/div[1]/button') 
+TestObject Link1 = new TestObject().addProperty('xpath', ConditionType.EQUALS, '//*[@id="div-hover"]/div[1]/div/a')
+WebUI.verifyElementNotVisible(Link1)
+// Mouse over on Link 1
+WebUI.mouseOver(HoverOverLink, 30)
+WebUI.verifyElementVisible(Link1)
+
+
 
 
 // close browser
