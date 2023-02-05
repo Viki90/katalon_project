@@ -22,6 +22,14 @@ import com.kms.katalon.core.testobject.ConditionType
 import com.kms.katalon.core.testobject.TestObject as TestObject
 import com.kms.katalon.core.util.KeywordUtil
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords
+import org.openqa.selenium.By as By
+import org.openqa.selenium.Keys as Keys
+import org.openqa.selenium.WebDriver as WebDriver
+import org.openqa.selenium.WebElement as WebElement
+import com.kms.katalon.core.webui.driver.DriverFactory as DriverFactory
+import org.openqa.selenium.WebElement as WebElement
+import com.kms.katalon.core.testobject.ConditionType
+import com.kms.katalon.core.testobject.TestObject as TestObject
 
 // Open browser
 WebUI.openBrowser('https://rahulshettyacademy.com/seleniumPractise/#/');
@@ -44,26 +52,24 @@ WebUI.click(findTestObject('Object Repository/checkout/Page_GreenKart - veg and 
 // Switch  window
 WebUI.switchToWindowUrl('https://rahulshettyacademy.com/seleniumPractise/#/cart')
 
-// get tottal amount
-
-text = WebUI.getText(findTestObject('Object Repository/Enter promo code/Page_GreenKart - veg and fruits kart/span_75'))
-
-WebUI.setText(findTestObject('Object Repository/Enter promo code/Page_GreenKart - veg and fruits kart/input_Total_promoCode'), text)
-
-// apply code
-WebUI.click(findTestObject('Object Repository/Enter promo code/Page_GreenKart - veg and fruits kart/button_Apply'))
-
-if ( WebUI.verifyElementPresent(findTestObject('Object Repository/invlid message/Page_GreenKart - veg and fruits kart/span_Invalid code'), 30)) {
-	KeywordUtil.markPassed("Element is present")
-} else {
-	KeywordUtil.markFailed("Element is not present")
-}
-
 // Click on place order
 WebUI.click(findTestObject('Object Repository/place order/Page_GreenKart - veg and fruits kart/button_Place Order'))
 
 // Switch  window
 WebUI.switchToWindowUrl('https://rahulshettyacademy.com/seleniumPractise/#/country')
+
+// select
+TestObject selectEl = new TestObject().addProperty('xpath', ConditionType.EQUALS, "//*[@id='root']/div/div/div/div/div/select")
+
+WebUI.click(selectEl)
+
+// select country
+WebUI.selectOptionByValue(selectEl, 'India', false)
+
+// verify element is clickble
+WebUI.verifyElementClickable(selectEl)
+
+
 
 // close browser
 WebUI.closeBrowser()
