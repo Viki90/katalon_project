@@ -82,13 +82,21 @@ WebUI.dragAndDropToObject(drag, drop)
 
 
 // Verify that “Link 1” is not visible until user hovers (Mouse Over) “Hover Over Me First” button
-TestObject HoverOverLink = new TestObject().addProperty('xpath', ConditionType.EQUALS, '//*[@id="div-hover"]/div[1]/button') 
+TestObject HoverOverLink = new TestObject().addProperty('xpath', ConditionType.EQUALS, '//*[@id="div-hover"]/div[1]') 
 TestObject Link1 = new TestObject().addProperty('xpath', ConditionType.EQUALS, '//*[@id="div-hover"]/div[1]/div/a')
 WebUI.verifyElementNotVisible(Link1)
 // Mouse over on Link 1
-WebUI.mouseOver(HoverOverLink, 30)
-WebUI.verifyElementVisible(Link1)
+WebUI.mouseOver(HoverOverLink)
+WebUI.click(Link1)
 
+// Click on “Link 1” and verify Alert message is displayed
+// alert verify
+WebUI.verifyAlertPresent(20)
+// Getting the text from the alert and storing it in Variable'
+String AlertText = driver.switchTo().alert().getText()
+// 'Verifying the Actual and Expected text from Alert'
+WebUI.verifyEqual(AlertText, 'Well done you clicked on the link!')
+WebUI.dismissAlert()
 
 
 
