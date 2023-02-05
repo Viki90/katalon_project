@@ -30,6 +30,8 @@ import com.kms.katalon.core.webui.driver.DriverFactory as DriverFactory
 import org.openqa.selenium.WebElement as WebElement
 import com.kms.katalon.core.testobject.ConditionType
 import com.kms.katalon.core.testobject.TestObject as TestObject
+import java.util.concurrent.ThreadLocalRandom;
+
 
 // Open browser
 WebUI.openBrowser('https://rahulshettyacademy.com/seleniumPractise/#/');
@@ -68,6 +70,26 @@ WebUI.selectOptionByValue(selectEl, 'India', false)
 
 // verify element is clickble (not disabled)
 WebUI.verifyElementClickable(selectEl)
+
+// random dopdown
+TotalOptions = WebUI.getNumberOfTotalOption(selectEl)
+
+Random rand = new Random()
+
+def randomNumber = ThreadLocalRandom.current().nextInt(0, TotalOptions - 1)
+WebUI.selectOptionByIndex(selectEl, randomNumber)
+
+//  check box 
+WebUI.check(findTestObject('Object Repository/checkbox/Page_GreenKart - veg and fruits kart/input_Choose Country_chkAgree'))
+
+// verify check box is checked
+WebUI.verifyElementChecked(findTestObject('Object Repository/checkbox/Page_GreenKart - veg and fruits kart/input_Choose Country_chkAgree'), 30)
+
+// click on procced btn
+WebUI.click(findTestObject('Object Repository/country/Page_GreenKart - veg and fruits kart/button_Proceed'))
+
+// Verify message after procced btn
+WebUI.verifyTextPresent("Thank you", true)
 
 // close browser
 WebUI.closeBrowser()
